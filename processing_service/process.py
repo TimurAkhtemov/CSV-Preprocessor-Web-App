@@ -12,8 +12,12 @@ def load_df(filepath):
         'missing_percentage': df.isnull().mean().mean(),  # Mean of means for all columns
         'total_memory_used': df.memory_usage(deep=True).sum()
     }
+    
     dataInfo = {k: int(v) if isinstance(v, np.int64) else v for k, v in dataInfo.items()} # Convert numpy integers to Python integers
     
-    return df, dataInfo
+    dataTypes = df.dtypes.apply(lambda x: str(x)).to_dict()
+    
+    
+    return df, dataInfo, dataTypes
 
     

@@ -27,9 +27,12 @@ def upload_file():
         db.session.commit()
         
         # return jsonify({'message': 'File successfully uploaded'}), 200
-        df, dataInfo = load_df(filepath) #load the file into a DataFrame
+        df, dataInfo, dataTypes = load_df(filepath) #load the file into a DataFrame
         print(dataInfo)
-        return jsonify({'file_id': file_record.id, 'data': df.to_dict(orient='records'), 'dataInfo': dataInfo})
+        return jsonify({'file_id': file_record.id, 
+                        'data': df.to_dict(orient='records'), 
+                        'dataInfo': dataInfo,
+                        'dataTypes': dataTypes})
     else:
         return jsonify({'error': 'Invalid file format'}), 400
 
